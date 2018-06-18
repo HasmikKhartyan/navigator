@@ -1,0 +1,10 @@
+.marker_content {
+  width: 27%;
+  margin-left: 10px;
+  display: inline-block; }
+
+.map_content {
+  position: relative !important;
+  z-index: 0;
+  /* left: 3%; */
+  top: 35px; }
