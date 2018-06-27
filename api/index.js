@@ -30,5 +30,22 @@ router.post('/users/1/markers',function(req,res) {
         }
     })
 });
+router.delete('/users/1/markers/:marker_id',function(req,res){
+     Marker.remove({"_id": mongoose.Types.ObjectId(req.params.marker_id)}, function(err) {
+        if (err) {
+            res.json({"essage":"error"});
+         }
+         res.json({"id":req.params.marker_id});
+
+    });
+});
+
+router.put('/users/1/markers/:marker_id',function(req,res){
+    Marker.findOneAndUpdate({ "_id": mongoose.Types.ObjectId(req.params.marker_id) }, { visited: req.body.visited }, function(err, marker) {
+        if (err) throw err;
+res.send(marker);
+
+    });
+});
 
 export default  router;

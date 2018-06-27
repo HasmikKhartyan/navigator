@@ -35,7 +35,7 @@ export class MapContainer extends Component {
         var markers = [];
         this.props.markers.map((marker) => {
 
-            markers.push(<Marker onClick = { this.onMarkerClick } key={marker.id}
+            markers.push(<Marker onClick = { this.onMarkerClick } key={marker._id}
                                  name = { marker.name }
                                  position = {JSON.parse(marker.position)}
                                  icon= {marker.add ? 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|ddd' :
