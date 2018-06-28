@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Map,  InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
-
+import MainContext from './contexts/MainContext';
 export class MapContainer extends Component {
     constructor(props) {
         super(props);
@@ -17,7 +17,6 @@ export class MapContainer extends Component {
             showingInfoWindow: false,
             activeMarker: {},
             selectedPlace: {},
-            initialCenter:props.initialCenter
         };
         this.onMarkerClick = this.onMarkerClick.bind(this);
     }
@@ -30,39 +29,45 @@ export class MapContainer extends Component {
         });
 
     }
-
-    render() {
+    renderMarkers(context){
         var markers = [];
-        this.props.markers.map((marker) => {
-
+        context.state.markers.map((marker) => {
             markers.push(<Marker onClick = { this.onMarkerClick } key={marker._id}
                                  name = { marker.name }
                                  position = {JSON.parse(marker.position)}
                                  icon= {marker.add ? 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|ddd' :
-                                 !marker.visited ? 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|51e25d':''
-}
-                                 />);
+                                     !marker.visited ? 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|51e25d':''
+                                 }
+            />);
         });
-
+        return markers;
+    }
+    render() {
         return (
-            <Map google={this.props.google} className="map_content"
-                 onScroll={'true'}
-                 onScrollPassive={'true'}
-                 zoom = { this.props.zoom }
-                 style = { this.config.style }
-                 initialCenter = { this.props.initialCenter }
-                 center={this.props.initialCenter}>
+            <MainContext.Consumer>
+                {
+                    (contaxt)=>(
+                    <Map google={this.props.google} className="map_content"
+                         onScroll={'true'}
+                         onScrollPassive={'true'}
+                         zoom={ this.props.zoom }
+                         style={ this.config.style }
+                         initialCenter={ contaxt.state.initialCenter }
+                         center={ contaxt.state.initialCenter}>
 
-                {markers}
+                        {this.renderMarkers(contaxt)}
 
-                <InfoWindow
-                    marker={this.state.activeMarker}
-                    visible={this.state.showingInfoWindow}>
-                    <div>
-                        <h1>{this.state.selectedPlace.name}</h1>
-                    </div>
-                </InfoWindow>
-            </Map>
+                        <InfoWindow
+                            marker={this.state.activeMarker}
+                            visible={this.state.showingInfoWindow}>
+                            <div>
+                                <h1>{this.state.selectedPlace.name}</h1>
+                            </div>
+                        </InfoWindow>
+                    </Map>
+                    )
+                }
+            </MainContext.Consumer>
         )
     }
 }

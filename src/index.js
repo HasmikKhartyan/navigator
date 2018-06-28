@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Main from './Main';
-
-
-
-
-// /        <Provider  >
-//     <Main  />
-// </Provider>
+import {MainProvider} from './contexts/MainContext';
 
 if (document.getElementById('map_container')) {
     ReactDOM.render(
-        <Main  />
+        <MainProvider>
+            <Main  />
+        </MainProvider>
         , document.getElementById('map_container'));
 }

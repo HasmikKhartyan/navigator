@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {SearchBar} from './SearchBar';
 import User from './User';
+import MainContext from './contexts/MainContext';
 class MarkerRow extends Component {
     show(){
         this.props.navigate(JSON.parse(this.props.marker.position));
@@ -17,7 +18,6 @@ class MarkerRow extends Component {
                             <button onClick={this.show.bind(this)} className="btn btn-primary">show</button>
                             {this.props.marker.add ? <button onClick={()=>this.props.addMarker(this.props.marker)} className="btn btn-primary">save</button> :
                                 <button onClick={()=>this.props.visited(this.props.marker)} className="btn btn-primary">{this.props.marker.visited ? 'unvisit':'visit'}</button>}
-
                         </td>
                     </tr>
 
@@ -26,24 +26,20 @@ class MarkerRow extends Component {
     }
 }
 class MarkerTable extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            markers:this.props.markers
-        };
-    }
-    render() {
-        this.state.markers = this.props.markers;
+    renderRows(contaxt){
         var rows = [];
-        this.state.markers.map((marker) => {
+        contaxt.state.markers.map((marker) => {
             if (marker.name.indexOf(this.props.filterText) === -1)
             {
                 return;
             }
-            rows.push(<MarkerRow key={marker['_id']} marker={marker} navigate={this.props.navigate}
-            addMarker={this.props.addMarker} deleteMarker={this.props.deleteMarker}
-                                 visited={this.props.visited} />);
-        });
+            rows.push(<MarkerRow key={marker['_id']} marker={marker} navigate={contaxt.func.navigate}
+                                 addMarker={contaxt.func.addMarker} deleteMarker={contaxt.func.deleteMarker}
+                                 visited={contaxt.func.visited} />);
+        })
+        return rows;
+    }
+    render() {
         return (
             <table className='table table-hover'>
                 <thead>
@@ -52,7 +48,11 @@ class MarkerTable extends Component {
                     <th>actions</th>
                 </tr>
                 </thead>
-                <tbody>{rows}</tbody>
+                <tbody>
+                <MainContext.Consumer>
+                {(contaxt)=>this.renderRows(contaxt)}
+                </MainContext.Consumer>
+                </tbody>
             </table>
         );
     }
@@ -75,14 +75,9 @@ export class FilterableMarkerTable extends Component {
             <div className="marker_content">
                 <SearchBar
                     onFilterTextInput={this.handleFilterTextInput.bind(this)}
-                    navigate = {this.props.navigate}
                 />
                 <MarkerTable
-                    markers={this.props.markers}
                     filterText={this.state.filterText}
-                    navigate = {this.props.navigate}
-                    addMarker={this.props.addMarker} deleteMarker={this.props.deleteMarker}
-                    visited={this.props.visited}
                 />
             </div>
         );
