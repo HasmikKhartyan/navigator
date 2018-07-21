@@ -1,0 +1,2 @@
+https://www.thegreatcodeadventure.com/jwt-authentication-with-react-redux/
+https://github.com/SophieDeBenedetto/catbook-redux/blob/blog-post/src/reducers/catReducer.js
