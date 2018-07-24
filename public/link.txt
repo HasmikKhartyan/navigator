@@ -1,2 +1,20 @@
 https://www.thegreatcodeadventure.com/jwt-authentication-with-react-redux/
 https://github.com/SophieDeBenedetto/catbook-redux/blob/blog-post/src/reducers/catReducer.js
+
+https://www.npmjs.com/package/translate-components
+https://hjnilsson.com/2016/02/29/working-with-translations-in-react/
+
+
+export class UsersModule {
+    constructor(translate: TranslateService) {
+        let lang = CONFIG['LANGUAGES'];
+        let i18n = require(`./i18n/${lang}.json`);
+
+        translate.setTranslation(lang, i18n, true);
+    }
+}
+
+
+
+
+https://www.npmjs.com/package/babel-plugin-syntax-dynamic-import
