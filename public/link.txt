@@ -18,3 +18,8 @@ export class UsersModule {
 
 
 https://www.npmjs.com/package/babel-plugin-syntax-dynamic-import
+
+
+
+https://egghead.io/lessons/javascript-redux-persisting-the-state-to-the-local-storage
+
