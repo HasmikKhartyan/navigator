@@ -23,3 +23,5 @@ https://www.npmjs.com/package/babel-plugin-syntax-dynamic-import
 
 https://egghead.io/lessons/javascript-redux-persisting-the-state-to-the-local-storage
 https://techblog.appnexus.com/five-tips-for-working-with-redux-in-large-applications-89452af4fdcb
+
+https://adrianarlett.gitbooks.io/idiomatic-redux-by-dan-abramov/content/persisting-the-state-to-the-local-storage.html
