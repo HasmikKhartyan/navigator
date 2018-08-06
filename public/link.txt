@@ -42,3 +42,56 @@ https://www.npmjs.com/package/react-list-lazy-load
 https://github.com/saigowthamr/Itunes-Top-100-albums/tree/master/src/components
 
 https://codeburst.io/lazy-loading-in-react-using-react-lazy-load-package-9bf65f6a8027
+////////////////////////////////////////////////////
+<table id="customers">
+<tbody><tr>
+  <th>Company</th>
+  <th>Contact</th>
+</tr>
+<tr>
+<td>Alfreds Futterkiste</td>
+<td>Maria Anders</td>
+
+</tr>
+
+
+</tbody></table>
+////////////
+table#customers {
+    font-size: 16px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;}
+    tr {
+    
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+#customers th {
+    padding-top: 11px;
+    padding-bottom: 11px;
+    background-color: #4CAF50;
+    color: white;
+}
+
+#customers td, #customers th {
+    /* border: 1px solid #ddd; */
+    text-align: left;
+    padding: 8px;
+}
+#customers td:first-child {
+  width:70%
+}
+#customers tr:nth-child(2) {
+  border: 1px solid #ddd;
+}
+    
