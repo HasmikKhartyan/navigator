@@ -44,10 +44,12 @@ https://github.com/saigowthamr/Itunes-Top-100-albums/tree/master/src/components
 https://codeburst.io/lazy-loading-in-react-using-react-lazy-load-package-9bf65f6a8027
 ////////////////////////////////////////////////////
 <table id="customers">
-<tbody><tr>
+<thead><tr>
   <th>Company</th>
   <th>Contact</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td>Alfreds Futterkiste</td>
 <td>Maria Anders</td>
