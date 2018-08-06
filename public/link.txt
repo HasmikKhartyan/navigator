@@ -32,3 +32,13 @@ https://tympanus.net/Tutorials/CustomDropDownListStyling/index5.html
 
 //////////////////////////////////////
 http://sebastianpontow.de/css2compass/
+
+
+
+https://codeburst.io/lazy-loading-in-react-using-react-lazy-load-package-9bf65f6a8027
+https://www.npmjs.com/package/react-list-lazy-load
+
+
+https://github.com/saigowthamr/Itunes-Top-100-albums/tree/master/src/components
+
+https://codeburst.io/lazy-loading-in-react-using-react-lazy-load-package-9bf65f6a8027
