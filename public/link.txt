@@ -101,4 +101,6 @@ tbody {
 https://www.youtube.com/watch?v=JicUNpwLzLY
 https://www.youtube.com/watch?v=c4_O8V6GTA8
 http://www.aztutorialz.com/auto-load-react-components-scroll/
+////////////////////////////////
+    -webkit-box-orient: vertical;
     
