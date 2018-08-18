@@ -1,3 +1,6 @@
+https://www.youtube.com/watch?v=ea9KyE78qKI
+https://www.youtube.com/watch?v=Ins-7Ze29IQ
+
 https://www.thegreatcodeadventure.com/jwt-authentication-with-react-redux/
 https://github.com/SophieDeBenedetto/catbook-redux/blob/blog-post/src/reducers/catReducer.js
 
