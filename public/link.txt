@@ -106,4 +106,46 @@ https://www.youtube.com/watch?v=c4_O8V6GTA8
 http://www.aztutorialz.com/auto-load-react-components-scroll/
 ////////////////////////////////
 https://reacttraining.com/react-router/web/example/auth-workflow
+
+/////////////////////////////////////
+
+const API_KEY = '795221149349-s62j7hb3cqpfm4korqv4fs9qk3dmcfqs.apps.googleusercontent.com';
+
+import React, { Component } from 'react';
+
+class App extends Component {
+
+  loadYoutubeApi() {
+    const script = document.createElement("script");
+    script.src = "https://apis.google.com/js/client.js";
+
+    script.onload = () => {
+      gapi.load('client', () => {
+        gapi.client.setApiKey(API_KEY);
+        gapi.client.load('youtube', 'v3', () => {
+          this.setState({ gapiReady: true });
+        });
+      });
+    };
+
+    document.body.appendChild(script);
+  }
+
+  componentDidMount() {
+    this.loadYoutubeApi();
+  }
+
+  render() {
+    if (this.state.gapiReady) {
+     return (
+       <h1>GAPI is loaded and ready to use.</h1>
+     );
+  };
+}
+
+export default App;
+
+
+
+https://developers.google.com/api-client-library/javascript/reference/referencedocs
     
