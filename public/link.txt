@@ -1,6 +1,13 @@
 https://www.youtube.com/watch?v=ea9KyE78qKI
 https://www.youtube.com/watch?v=Ins-7Ze29IQ
 
+https://auth0.com/authenticate/react/google/
+https://github.com/davidtran/react-facebook-javascript-sdk-login
+https://stackoverflow.com/questions/27717555/implement-facebook-api-login-with-reactjs
+https://stackoverflow.com/questions/43848100/login-with-google-on-react-app-using-a-react-component
+https://stackoverflow.com/questions/43617815/how-to-get-google-authentication-to-work-with-reactjs
+https://developers.google.com/identity/protocols/OAuth2UserAgent
+
 https://www.thegreatcodeadventure.com/jwt-authentication-with-react-redux/
 https://github.com/SophieDeBenedetto/catbook-redux/blob/blog-post/src/reducers/catReducer.js
 
