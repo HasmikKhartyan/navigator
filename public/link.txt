@@ -1,3 +1,18 @@
+https://codesandbox.io/s/00254q4n6p
+https://codesandbox.io/s/q5zz377m4
+https://assortment.io/posts/accessible-modal-component-react-portals-part-1
+https://codepen.io/davidgilbertson/pen/ooXVyw
+
+https://codeburst.io/modals-in-react-f6c3ff9f4701
+https://codepen.io/a-mt/pen/pWBbrx
+https://codepen.io/gaearon/pen/yzMaBd
+
+https://codepen.io/jtsharpsite/pen/gorvjR
+
+
+
+
+
 https://www.youtube.com/watch?v=ea9KyE78qKI
 https://www.youtube.com/watch?v=Ins-7Ze29IQ
 
