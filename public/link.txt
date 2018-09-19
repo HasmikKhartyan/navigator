@@ -170,4 +170,126 @@ export default App;
 
 
 https://developers.google.com/api-client-library/javascript/reference/referencedocs
+
+/////////////////fb
+/* global FB, window, document */
+import React, { Component, Fragment } from 'react';
+import { facebookApiId } from '../../configInit';
+// import '../../styles/css/social.css';
+import { Account } from '../../api/Calls';
+
+class FacebookLogin extends Component {
+  constructor() {
+    super();
+    this.fields = {
+      fields: 'name, first_name, middle_name, last_name, age_range, gender, birthday, permissions, email, picture',
+    };
+    this.state = {
+      url: null,
+    };
+  }
+
+  async componentDidMount() {
+    const self = this;
+    // insert FB script before other scripts
+    (function fbScript(d, s, id) {
+      const fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      const js = d.createElement(s);
+      js.id = id;
+      js.src = '//connect.facebook.net/en_US/sdk.js';
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    // define function to initialize SDK methods
+    window.fbAsyncInit = await function fbInit() {
+      // console.log(FB);
+      FB.init({
+        appId: facebookApiId,
+        version: 'v3.1', // graph API
+      });
+      FB.getLoginStatus(({ status }) => {
+        if (status === 'connected') {
+          FB.api('/me', { fields: 'picture' }, (user) => {
+            const url = `https://graph.facebook.com/${user.id}/picture?type=large`;
+            self.setState({
+              url,
+            });
+          });
+        }
+      });
+    };
+    // this.checkLoginState();
+  }
+
+  facebookLogin = () => {
+    FB.login((resp) => {
+      this.statusChangeCallback(resp);
+    }, { scope: 'email' });
+    // additional permissions request: user_gender, user_birthday, user_age_range
+  }
+
+  fetchDataFacebook = () => {
+    FB.api('/me', this.fields, (user) => {
+      const socialInfo = {
+        social: 'Facebook',
+        socialId: user.id,
+        email: user.email,
+        firstname: user.first_name,
+        lastname: user.last_name,
+        name: user.name,
+        img: `https://graph.facebook.com/${user.id}/picture?type=large`,
+      };
+      // permissions: user.permissions,
+      Account.sendSocialInfo(socialInfo);
+    });
+  }
+
+  statusChangeCallback = ({ status }) => {
+    if (status === 'connected') {
+      this.fetchDataFacebook();
+    } else {
+      console.log('User cancelled login or did not fully authorize.');
+    }
+  }
+
+ checkLoginState = () => {
+   FB.getLoginStatus((response) => {
+    console.log(response, "111");
+    // statusChangeCallback(response);
+  });
+ }
+
+ render() {
+   const { url } = this.state;
+   // const { hint } = this.props;
+   // const socialHint = hint ? 'social-hint' : '';
+   return (
+   // <button
+   //   type="button"
+   //   // className={`social-button fa-facebook ${socialHint}`}
+   //   className="social-button fa-facebook "
+   //   onClick={this.facebookLogin}
+   // />
+<Fragment>
+      <a className="btn btn-block btn-social btn-facebook" onClick={this.facebookLogin}>
+   <span />
+{' '}
+Sign in with Facebook
+{' '}
+<span ></span>
+ </a>
+ { url && <img src={url} width="46px" height="46px"/>}
+
+ </Fragment>
+   );
+ }
+}
+
+https://lipis.github.io/bootstrap-social/
+export default FacebookLogin;
+
+
+
+
     
