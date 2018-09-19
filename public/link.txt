@@ -290,6 +290,32 @@ https://lipis.github.io/bootstrap-social/
 export default FacebookLogin;
 
 
+https://terrymooreii.github.io/materialize-social/
+
+<a class=" btn   facebook"><i class=" fa-facebook"></i> Sign in with facebook<i class=" fa-facebook"></i></a>
+
+.facebook {
+    background-color: #3b5998 !important;
+    color: #fff !important;
+}
+
+
+.btn {
+    border-radius: 6px;
+    display: inline-block;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 2rem;
+    text-transform: uppercase;
+    cursor: pointer;
+        letter-spacing: .5px;
+}
+
+.fa-facebook:before {
+    content: "\f09a";
+}
+
+
 
 
     
