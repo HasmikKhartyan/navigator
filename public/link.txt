@@ -1,120 +1,22 @@
-   <div class="holder">
-   <div class="search">
-    <div class="search-button">
-        <div class="search-icon"></div>
-      </div> 
-      <div id="search-content" class="search-content active">
-        <input id="input" type="text">
-        <span class="clear-search">Clear</span>
-      </div>
-      <div class="search-button">
-        <div class="search-icon"></div>
-      </div>  
-    </div>
-    <ul>
-          <li>
-        <img src="https://38.media.tumblr.com/4249a67e76729e9126ef3f70e741c323/tumblr_inline_mixcyvIPd81qz4rgp.jpg" alt="img"/>   
-        <span>ffff</span>
-        <span class="phone">444444</span>
-      </li>  
-    </ul>
-    </div>
-/////////////////////////////////////////////////////////////////////
+// Get the input box
+var textInput = document.getElementById('test-input');
 
-$lightGrey: #efefef;
-$orange: #f7891e;
-$white: #ffffff;
-$black: #333333;
+// Init a timeout variable to be used below
+var timeout = null;
 
+// Listen for keystroke events
+textInput.onkeyup = function (e) {
 
-.search {
-  display: flex;
-   align-items: center;
-  height: 50px;
-  line-height: 50px;
-}
+    // Clear the timeout if it has already been set.
+    // This will prevent the previous task from executing
+    // if it has been less than <MILLISECONDS>
+    clearTimeout(timeout);
 
-.search-content {
-  position: relative;
-  height: 100%;
-  input {
-    height: 100%;
-    width: 450px;
-    border: none;
-    border-bottom: 1px solid;
-    padding: 0;
-    box-sizing: border-box;
-    outline: none;
-    padding: 0 1rem;
-    font-size: 1.5rem;
-  }
-  .clear-search {
-    position: absolute;
-    right: 0;
-    top: 0;
-    padding: 0 1rem;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: lighten($black, 50%);
-  }
-}
-.search-button {
-  padding: 0 2rem;
-  cursor: pointer;
-  .search-icon {
-    width: 10px;
-    height: 10px;
-    border: solid 2px $black;
-    border-radius: 100%;
-    -webkit-transform: rotate(-45deg);
-            transform: rotate(-45deg);
-    &:before {
-      content: '';
-      position: absolute;
-      top: 12px;
-      left: 4px;
-      height: 8px;
-      width: 2px;
-      background-color: $black;
-    }
-  }
-}
-
-.holder {
-  width: 50%;
-  margin: 50px auto;
-  padding: 20px;
-}
-ul {
-  list-style-type: none;
-  li {
-    overflow: hidden;
-    margin: 0 0 20px;
-    border-bottom: 1px solid #ccc;
-    padding: 0 0 20px;
-    &:last-child {
-      margin: 0;
-    }
-  }
-}
-img {
-  float: left;
-  display: block;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin: 0 10px 0 0;
-}
-li>span {
-  display: block;
-  width: 100%;
-  font-weight: bolder;
-  &.phone {
-    font-weight: normal;
-    font-style: italic;
-    color: #999;
-  }
-}
+    // Make a new timeout set to go off in 800ms
+    timeout = setTimeout(function () {
+        console.log('Input Value:', textInput.value);
+    }, 500);
+};
 
 /////////////////////////////////////////////////////////////
 https://codepen.io/Natarajah/pen/mAGQpw
