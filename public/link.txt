@@ -1,3 +1,9 @@
+ ContentProps={{
+           // this works for styling
+            style: { backgroundColor: "yellow" }
+            // this can't work for some reason
+          }}
+//////////////////////////////////////////////////
 import React from "react";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
