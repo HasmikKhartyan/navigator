@@ -1,3 +1,73 @@
+import React from "react";
+import Button from "@material-ui/core/Button";
+import Snackbar from "@material-ui/core/Snackbar";
+import Slide from "@material-ui/core/Slide";
+import { withStyles } from "@material-ui/core/styles";
+
+function TransitionLeft(props) {
+  return <Slide {...props} direction="left" />;
+}
+
+function TransitionUp(props) {
+  return <Slide {...props} direction="up" />;
+}
+
+function TransitionRight(props) {
+  return <Slide {...props} direction="right" />;
+}
+
+function TransitionDown(props) {
+  return <Slide {...props} direction="down" />;
+}
+const styles = theme => ({
+  snackbar: {
+    backgroundColor: "yellow"
+  }
+});
+
+class DirectionSnackbar extends React.Component {
+  state = {
+    open: false,
+    Transition: null
+  };
+
+  handleClick = Transition => () => {
+    this.setState({ open: true, Transition });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+  render() {
+    const bg = { backgroundColor: "yellow" };
+    const { classes } = this.props;
+    return (
+      <div>
+        <Button onClick={this.handleClick(TransitionLeft)}>Right</Button>
+        <Button onClick={this.handleClick(TransitionUp)}>Up</Button>
+        <Button onClick={this.handleClick(TransitionRight)}>Left</Button>
+        <Button onClick={this.handleClick(TransitionDown)}>Down</Button>
+
+        <Snackbar
+          open={this.state.open}
+          onClose={this.handleClose}
+          TransitionComponent={this.state.Transition}
+          autoHideDuration={2000}
+          ContentProps={{
+            className: classes.snackbar, // this works for styling
+            style: { backgroundColor: "yellow" } // this can't work for some reason
+          }}
+        />
+      </div>
+    );
+  }
+}
+
+export default withStyles(styles)(DirectionSnackbar);
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////
 // Get the input box
 var textInput = document.getElementById('test-input');
 
