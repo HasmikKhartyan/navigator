@@ -1,3 +1,18 @@
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.min.js"></script>
+ let users = [
+  {name: 'bob', id: 1},
+  {name: 'sam', id: 2},
+  {name: 'ted', id: 3},
+];
+let filters = [{id:1,filters:['bob']},{id:3,filters:['sum','bob']}];
+let filtersList = [{key:'sum'}];
+
+const filterResult = _.intersectionWith(filters, filtersList,  ({filters},{key}) => filters.includes(key) );
+console.log(filterResult);
+const result = _.intersectionWith(users, filterResult,  ({id},{id:filterId}) => id == filterId );
+
+console.log(result)
+ ////////////////////////////////////////////////////////////////////
  let users = [
   {name: 'bob', id: 1},
   {name: 'sam', id: 2},
