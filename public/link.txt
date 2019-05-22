@@ -1,4 +1,19 @@
  let users = [
+  {name: 'bob', id: 1},
+  {name: 'sam', id: 2},
+  {name: 'ted', id: 3},
+];
+let filters = [{id:1,filters:['bob']},{id:3,filters:['sum','bob']}];
+let filtersList = [{key:'sum'}];
+
+    let res = _.filter(users, ({id}) => {
+        return _.findIndex(filters, ({id:filterId, filters}) => 
+        { return (id == filterId ) }) >= 0 
+    }
+    )
+    console.log(res);
+ ///////////////////////////////////
+ let users = [
   {name: 'bob', project: 1},
   {name: 'sam', project: 2},
   {name: 'ted', project: 3},
