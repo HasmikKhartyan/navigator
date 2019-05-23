@@ -1,3 +1,50 @@
+ 
+  let list = [
+{loadAxeleId: "LD-124543064", organizationId: 124, orderAxeleId: null, driverId: 1758, driverName: null},
+{loadAxeleId: "LD-124543069", organizationId: 124, orderAxeleId: null, driverId: 1758, driverName: null},
+{loadAxeleId: "LD-124543067", organizationId: 124, orderAxeleId: null, driverId: 1758, driverName: null}
+];
+const filterData = [ {filters: ["Reviewed", "Visible"],id: "LD-124543064"} ];
+const filtersList = [{key: "Reviewed", value: "REVIEWED"}, {key: "UnReviewed", value: "UnReviewed"}];
+
+var filtersKey = _.map(filtersList,'key');
+
+/*     const reviewed = pillsOptions[0].key;
+    const unReviewed = pillsOptions[1].key;
+    const visible = pillsOptions[2].key;
+    const hidden = pillsOptions[3].key; */
+    
+    const reviewed = 'Reviewed';
+    const unReviewed = 'UnReviewed';
+    const visible ='Visible';
+    const hidden = 'Hidden';
+
+
+ if((filtersKey.includes(reviewed) && filtersKey.includes(unReviewed))
+    || (filtersKey.includes(visible) && filtersKey.includes(hidden))){
+      console.log("1 case");
+      console.log(list);
+    }else if((filtersKey.includes(reviewed) && filtersKey.includes(hidden))
+    || (filtersKey.includes(unReviewed) && filtersKey.includes(hidden))
+    ){
+      const filterResult = intersectionWith(filterData, filtersArr,  ({filters},{key}) => filters.includes(key) );
+      const result = intersectionWith(list, filterResult,  ({loadAxeleId},{id}) => loadAxeleId == id );
+      console.log("2 case");
+       console.log(result) ;
+    }
+    else{
+      console.log("3 case");
+      const filterResult = intersectionWith(filterData, filtersArr,  ({filters},{key}) => filters.includes(key) );
+      const result = intersectionWith(list, filterResult,  ({loadAxeleId},{id}) => loadAxeleId == id );
+     console.log(result );
+    }
+
+ 
+ 
+ 
+ 
+ 
+//////////////////////////////////////////////////////////////////////// 
  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.min.js"></script>
  let users = [
   {name: 'bob', id: 1},
