@@ -1,46 +1,78 @@
- 
   let list = [
 {loadAxeleId: "LD-124543064", organizationId: 124, orderAxeleId: null, driverId: 1758, driverName: null},
 {loadAxeleId: "LD-124543069", organizationId: 124, orderAxeleId: null, driverId: 1758, driverName: null},
-{loadAxeleId: "LD-124543067", organizationId: 124, orderAxeleId: null, driverId: 1758, driverName: null}
+{loadAxeleId: "LD-124543067", organizationId: 124, orderAxeleId: null, driverId: 1758, driverName: null},
+{loadAxeleId: "LD-124543068", organizationId: 124, orderAxeleId: null, driverId: 1758, driverName: null},
+{loadAxeleId: "LD-124543063", organizationId: 124, orderAxeleId: null, driverId: 1758, driverName: null}
 ];
-const filterData = [ {filters: ["Reviewed", "Visible"],id: "LD-124543064"} ];
-const filtersList = [{key: "Reviewed", value: "REVIEWED"}, {key: "UnReviewed", value: "UnReviewed"}];
 
-var filtersKey = _.map(filtersList,'key');
+const filterData = [
+{filters: ["Reviewed"],id: "LD-124543064"},
+{filters: ["Hidden"],id: "LD-124543063"},
+];
 
-/*     const reviewed = pillsOptions[0].key;
-    const unReviewed = pillsOptions[1].key;
-    const visible = pillsOptions[2].key;
-    const hidden = pillsOptions[3].key; */
-    
+const filtersList = [
+//{key: "Reviewed", value: "Reviewed"},
+//{key: "Visible", value: "Visible"},
+{key: "UnReviewed", value: "Reviewed"},
+{key: "Hidden", value: "Hidden"} 
+];
+
+var filtersKey = _.map(filtersList,'key'); 
+
     const reviewed = 'Reviewed';
     const unReviewed = 'UnReviewed';
     const visible ='Visible';
     const hidden = 'Hidden';
-
-
+    const filtersSize = filtersKey.length;
+    
+    
  if((filtersKey.includes(reviewed) && filtersKey.includes(unReviewed))
-    || (filtersKey.includes(visible) && filtersKey.includes(hidden))){
+    || (filtersKey.includes(visible) && filtersKey.includes(hidden) || filtersSize>2)){
       console.log("1 case");
       console.log(list);
-    }else if((filtersKey.includes(reviewed) && filtersKey.includes(hidden))
+    }
+    else if((filtersKey.includes(reviewed) && filtersKey.includes(visible))
     || (filtersKey.includes(unReviewed) && filtersKey.includes(hidden))
+   
     ){
-      const filterResult = intersectionWith(filterData, filtersArr,  ({filters},{key}) => filters.includes(key) );
-      const result = intersectionWith(list, filterResult,  ({loadAxeleId},{id}) => loadAxeleId == id );
+     // const filterResult = intersectionWith(filterData, filtersArr,  ({filters},{key}) => filters.includes(key) );
+      const result =  _.differenceWith(list, filterData,  ({loadAxeleId},{id, filters }) => loadAxeleId == id && (!filters.includes(hidden) || filters.includes(reviewed)) );
       console.log("2 case");
        console.log(result) ;
     }
-    else{
-      console.log("3 case");
-      const filterResult = intersectionWith(filterData, filtersArr,  ({filters},{key}) => filters.includes(key) );
-      const result = intersectionWith(list, filterResult,  ({loadAxeleId},{id}) => loadAxeleId == id );
-     console.log(result );
+    else if((filtersKey.includes(unReviewed) && filtersKey.includes(visible))){
+     const result =  _.differenceWith(list, filterData,  ({loadAxeleId},{id, filters }) => loadAxeleId == id && (filters.includes(hidden) || filters.includes(reviewed)) );
+      console.log("10 case");
+       console.log(result) ;
     }
+     else if(filtersKey.includes(reviewed) && filtersKey.includes(hidden) ){
+     // const filterResult = intersectionWith(filterData, filtersArr,  ({filters},{key}) => filters.includes(key) );
+      const result =  _.intersectionWith(list, filterData,  ({loadAxeleId},{id, filters }) => loadAxeleId == id && (filters.includes(hidden) || filters.includes(reviewed) ) );
+      console.log("3 case");
+       console.log(result) ;
+    }
+    else if(filtersKey.includes(reviewed)){
+      const result =  _.intersectionWith(list, filterData,  ({loadAxeleId},{id, filters }) => loadAxeleId == id && filters.includes(reviewed) );
+       console.log("4 case");
+      console.log(result );
+    }
+     else if(filtersKey.includes(unReviewed)){
+      const result =  _.differenceWith(list, filterData,  ({loadAxeleId},{id, filters }) => loadAxeleId == id && filters.includes(reviewed) );
+       console.log("5 case");
+      console.log(result );
+    }
+    else if(filtersKey.includes(hidden)){
+      const result =  _.intersectionWith(list, filterData,  ({loadAxeleId},{id, filters }) => loadAxeleId == id && filters.includes(hidden)  );
+      console.log("6 case");
+       console.log(result) ;
+    }
+     else if(filtersKey.includes(visible) ){
+      const result =  _.differenceWith(list, filterData,  ({loadAxeleId},{id, filters }) => loadAxeleId == id && !filters.includes(hidden) );
+      console.log("7 case");
+       console.log(result) ;
+     }
 
- 
- 
  
  
  
