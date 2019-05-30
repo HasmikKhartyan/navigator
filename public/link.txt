@@ -1,4 +1,69 @@
-      const { potentialLoads ={} } = state;
+     
+     
+     
+     
+     
+/* {filters: ["Reviewed"],id: "LD-124543064"},
+{filters: ["Reviewed"],id: "LD-124543063"},
+]; */
+let loadsState = [
+	{
+    id:"LD-124543064",
+    filters:["Hidden"]
+  },
+  	{
+    id:"LD-124543077",
+    filters:["Hidden"]
+  },
+    	{
+    id:"LD-12454309977",
+    filters:["Hidden"]
+  },
+
+];
+
+const selectedLoad = {loadAxeleId: "LD-124543064", organizationId: 124, orderAxeleId: null, driverId: 1758, driverName: null};
+
+const filter = "Visible";
+
+    if(loadsState.length == 0){
+        const data = {id:selectedLoad.loadAxeleId, filters:[filter]}
+        loadsState.push(data);
+      }else{
+         _.forEach(loadsState, function(item, index, object) {
+          const {id , filters} = item || {};
+          console.log(id, selectedLoad.loadAxeleId, "..11");
+          if(id == selectedLoad.loadAxeleId ){
+            if(filter == "Hidden"){
+              console.log(id, selectedLoad.loadAxeleId, "..22");
+              filters.push(filter);
+            }else{
+              console.log(id, selectedLoad.loadAxeleId, "..33");
+              _.remove(filters, function (el) {
+                return  el === "Hidden";
+              });
+              console.log(filters, "..44");
+              if(filters.length == 0){
+                        object.splice(index, 1);
+                  console.log(loadsState, "..66");
+              } 
+            }
+          }else{
+            console.log(id, selectedLoad.loadAxeleId, "..44");
+            const data = {id:selectedLoad.loadAxeleId, filters:["Hidden"]}
+            loadsState.push(data);
+          }
+        
+        });
+      }
+     console.log(loadsState, "......55555", loadsState);
+     
+     
+     
+     
+   ***********************************  
+     
+     const { potentialLoads ={} } = state;
       const { filter, selectedLoad } = action;
       _.forEach(potentialLoads, function(item) {
         const {loadAxeleId} = item || {};
