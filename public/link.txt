@@ -1,4 +1,54 @@
-  let list = [
+      const { potentialLoads ={} } = state;
+      const { filter, selectedLoad } = action;
+      _.forEach(potentialLoads, function(item) {
+        const {loadAxeleId} = item || {};
+        if(loadAxeleId == selectedLoad.loadAxeleId ){
+          if(filter == "Hidden"){
+            item[filter] = true;
+          }else{
+            delete item['Hidden'];
+          }
+        }
+      });
+/////////////////fast commit needed to change///////////////
+      const { loadSelection} = state;
+      const { sessionData: { loadsState }} = loadSelection || initialState ;
+      // const filtersKey = _.map(filtersList,'key'); 
+      // const { filter, selectedLoad } = action;
+   
+      if(loadsState.length == 0){
+        const data = {id:selectedLoad.loadAxeleId, filters:[filter]}
+        loadsState.push(data);
+      }else{
+        _.forEach(loadsState, function(item, index, object) {
+          const {id , filters} = item || {};
+          console.log(id, selectedLoad.loadAxeleId, "..11");
+          if(id == selectedLoad.loadAxeleId ){
+            if(filter == "Hidden"){
+              console.log(id, selectedLoad.loadAxeleId, "..22");
+              filters.push(filter);
+            }else{
+              console.log(id, selectedLoad.loadAxeleId, "..33");
+              _.remove(filters, function (el) {
+                return  el === "Hidden";
+              });
+              console.log(filters, "..44");
+              if(filters.length == 0){
+                console.log(filters, "..55");
+                  object.splice(index, 1);
+              } 
+            }
+          }else{
+            console.log(id, selectedLoad.loadAxeleId, "..44");
+            const data = {id:selectedLoad.loadAxeleId, filters:["Hidden"]}
+            loadsState.push(data);
+          }
+        });
+      }
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+let list = [
 {loadAxeleId: "LD-124543064", organizationId: 124, orderAxeleId: null, driverId: 1758, driverName: null},
 {loadAxeleId: "LD-124543069", organizationId: 124, orderAxeleId: null, driverId: 1758, driverName: null},
 {loadAxeleId: "LD-124543067", organizationId: 124, orderAxeleId: null, driverId: 1758, driverName: null},
