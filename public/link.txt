@@ -1,7 +1,51 @@
      
+     let loadsState = [
+	{
+    id:"LD-124543064",
+    filters:["Hidden"]
+  },
+  	{
+    id:"LD-124543077",
+    filters:["Hidden"]
+  },
+    	{
+    id:"LD-12454309977",
+    filters:["Hidden"]
+  },
+
+];
+
+const selectedLoad = {loadAxeleId: "LD-124543064", organizationId: 124, orderAxeleId: null, driverId: 1758, driverName: null};
+
+const filter = "Visible";
+      if(loadsState.length == 0){
+        const data = {id:selectedLoad.loadAxeleId, filters:[filter]}
+        loadsState.push(data);
+        console.log("in ifff", loadsState);
+      }else{
+        _.forEach(loadsState, function(item, index, object) {
+          const {id , filters} = item || {};
+          if(id == selectedLoad.loadAxeleId ){
+            console.log("if 2");
+            if(filter == "Hidden"){
+              filters.push(filter);
+            }else{
+              _.remove(filters, function (el) {
+                return  el === "Hidden";
+              });
+              if(filters.length == 0){
+                  object.splice(index, 1);
+              } 
+            }
+          }else{
+            const data = {id:selectedLoad.loadAxeleId, filters:[filter]}
+            loadsState.push(data);
+          }
+        });
+      }
+      console.log(loadsState);
      
-     
-     
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>     
      
 /* {filters: ["Reviewed"],id: "LD-124543064"},
 {filters: ["Reviewed"],id: "LD-124543063"},
