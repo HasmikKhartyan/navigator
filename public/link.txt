@@ -1,4 +1,32 @@
-    let loadsState = [
+       const reviewed = pillsOptions[0].key;
+    const unReviewed = pillsOptions[1].key;
+    const visible = pillsOptions[2].key;
+    const hidden = pillsOptions[3].key;
+    let filtersKey = _.map(filtersList, 'key');
+    const filtersSize = filtersKey.length;
+    let result;
+    if (filtersSize > 2 || (filtersKey.includes(reviewed) && filtersKey.includes(unReviewed))
+    || (filtersKey.includes(visible) && filtersKey.includes(hidden))) {
+      result = list;
+    } else if ((filtersKey.includes(reviewed) && filtersKey.includes(visible))) {
+      result = _.filter(list, item => !_.has(item, hidden) || item[reviewed]);
+    } else if (filtersKey.includes(reviewed) && filtersKey.includes(hidden)) {
+      result = filter(list, item => item[hidden] || item[reviewed]);
+    } else if ((filtersKey.includes(unReviewed) && filtersKey.includes(hidden))) {
+      const result = filter(list, obj => (!has(obj, reviewed) || obj[hidden]));
+    } else if ((filtersKey.includes(unReviewed) && filtersKey.includes(visible))) {
+      result = filter(list, obj => !(has(obj, reviewed) || has(obj, hidden)));
+    } else if (filtersKey.includes(reviewed)) {
+      result = filter(list, { [reviewed]: true });
+    } else if (filtersKey.includes(unReviewed)) {
+      result = filter(list, obj => !has(obj, reviewed));
+    } else if (filtersKey.includes(hidden)) {
+      result = filter(list, { [hidden]: true });
+    } else if (filtersKey.includes(visible)) {
+      result = filter(list, obj => !has(obj, hidden));
+    }
+   ///////////////////////////////////////////////////////////////
+   let loadsState = [
 	{
     id:"LD-124543064",
     filters:["Hidden","reviewed"]
