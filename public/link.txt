@@ -1,3 +1,15 @@
+
+
+
+ (reviewed and visible)
+   result = _.filter(list, item => ((!_.has(item, hidden) || item[reviewed]) || item[reviewed]));
+   unReviewed u hiddn 
+   remove const
+   
+   unReviewed u visible
+   result = _.filter(list, obj => !(_.has(obj, reviewed) && _.has(obj, hidden)));
+   
+///////////////////////////////////
        const reviewed = pillsOptions[0].key;
     const unReviewed = pillsOptions[1].key;
     const visible = pillsOptions[2].key;
