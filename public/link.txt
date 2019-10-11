@@ -1,4 +1,137 @@
+ const warningList = {locationAndHOSAreOutdated: true, loadWarnings:[{ loadIsAssigned: true }], warningCount: 1 };
+ import React, { Fragment } from 'react';
+import Badge from '@material-ui/core/Badge';
+import { Info } from '../../../../_assets/material_icons/index';
+import IconButton from '@material-ui/core/IconButton';
+import classnames from 'classnames';
+import { Link } from 'react-router-dom';
+import { concatWithCommas } from '../../../../_helpers';
+import TitleTooltip from '../../../Common/_Tooltip';
+import { warningMessages } from '../../Loads/components/constants';
+import { withStyles } from '@material-ui/core/styles';
+import { BadgeStyles } from './driverBadgeStyles';
 
+class DriverBadge extends React.Component {
+  getLinkForLoad=(item, classes) => {
+    let loadIdText = item.loadAxeleId;
+    let loadLink = null;
+    if (!loadIdText) {
+      loadIdText = item.loadId;
+    }
+
+    if (loadIdText) {
+      loadLink = (
+        <Link
+          className={classes.loadLink}
+          onClick={(e) => {e.stopPropagation();}}
+          to={`/loads/${item.loadId}`}
+        >
+          {`${loadIdText}`}
+        </Link>
+      );
+    }
+    return loadLink;
+  }
+
+  warningTooltip = (warningSummary, numberOfWarnings) => {
+    const { classes } = this.props;
+    let warningKeys = Object.keys(warningSummary);
+    return (
+      <div className={classes.tooltipWarning}>
+        <div className={classes.tooltipTitle}>
+          <div>
+            {`Warnings (${numberOfWarnings})`}
+          </div>
+          {warningSummary.driverNeedLoad && (
+          <div className={classes.subTitle}>
+            {warningMessages.driverNeedLoad}
+          </div>
+          )}
+        </div>
+        {warningKeys.map((warning, index) => {
+          if (warning === 'driverNeedLoad') {
+            return null;
+          }
+          const {
+            loadIsAssigned, loadIsPaid, stopIsDelayed, delayedStopNames
+          } = warningSummary[warning];
+          return (
+            <Fragment key={index}>
+              <div className={classnames(classes.loadTooltipTitle, classes.tooltipRow)}>
+                <span>Load </span>
+                <span>{this.getLinkForLoad(warningSummary[warning], classes)}</span>
+                <span> is at risk due to:</span>
+              </div>
+              <ul className={classes.tooltipText}>
+                {!loadIsAssigned && <li className={classes.tooltipRow} key={0}>{warningMessages.loadIsAssigned}</li>}
+                {!loadIsPaid && <li className={classes.tooltipRow} key={1}>{warningMessages.loadIsPaid}</li>}
+                {stopIsDelayed && <li className={classes.tooltipRow} key={2}>{`${warningMessages.stopIsDelayed}${concatWithCommas(delayedStopNames)}.`}</li>}
+              </ul>
+            </Fragment>
+          );
+        })}
+      </div>
+    );
+  };
+
+  warningMessage = (driverWarning) => {
+    const { classes } = this.props;
+    let numberOfWarnings = 0;
+    let warningSummary = {};
+    if (!driverWarning) {
+      return;
+    }
+
+    if (driverWarning.driverNeedLoad) {
+      numberOfWarnings += 1;
+      warningSummary.driverNeedLoad = 1;
+    }
+
+    if (driverWarning.loadWarnings && driverWarning.loadWarnings.length) {
+      for (let warningIndex = 0; warningIndex < driverWarning.loadWarnings.length; warningIndex += 1) {
+        let warning = driverWarning.loadWarnings[warningIndex];
+        if (warning && warning.numberOfWarnings) {
+          numberOfWarnings += warning.numberOfWarnings;
+          warningSummary[warning.loadId] = warning;
+        }
+      }
+    }
+
+    if (!numberOfWarnings) {
+      return null;
+    }
+
+    return (
+      <div className={classes.warningContainer}>
+        <TitleTooltip
+          classes={{ selfTooltip: classes.warningTooltip }}
+          placement="top-start"
+          content={this.warningTooltip(warningSummary, numberOfWarnings)}
+          interactive
+          leaveDelay={100}
+        >
+          <IconButton aria-label="Cart" disableRipple style={{ background: 'transparent' }}>
+            <Badge classes={{ badge: classes.badge }} badgeContent={numberOfWarnings}>
+              <Info className={classes.infoIcon} />
+            </Badge>
+          </IconButton>
+        </TitleTooltip>
+      </div>
+    );
+  };
+
+  render() {
+    const { driverWarning } = this.props;
+    return ( 
+      <Fragment>
+        {this.warningMessage(driverWarning)} 
+      </Fragment>
+    );
+  }
+};
+
+export default withStyles(BadgeStyles)(DriverBadge);
+ 
 
 
  (reviewed and visible)
